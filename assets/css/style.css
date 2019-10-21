@@ -24,3 +24,8 @@ h2{
     clear: both;
     font-weight: bold;
 }
+#attackInfo{
+    clear: both;
+    font-weight: bold;
+    color: white;
+}
