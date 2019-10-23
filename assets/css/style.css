@@ -4,6 +4,7 @@ body{
     background-image: url("../images/castle-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Jura', sans-serif;
 }
 .char-button{
     float: left;
@@ -18,7 +19,7 @@ body{
 }
 p{
     text-align: center;
-    font-weight: bold;
+    font-weight: bolder;
 }
 h2{
     clear: both;
@@ -29,3 +30,14 @@ h2{
     font-weight: bold;
     color: white;
 }
+.reset-button{
+    visibility: hidden;
+}
+h1{
+    text-align: center;
+    font-family: 'Schoolbell', cursive;
+    font-size: 28px;
+}
+/* 
+font-family: 'Schoolbell', cursive;
+font-family: 'Oswald', sans-serif; */

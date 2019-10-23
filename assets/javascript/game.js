@@ -42,7 +42,7 @@ $(document).ready(function() {
         // set initial healthscore for each character between 120 and 200
         setInitialHS: function(charNum){
             gameCharacter.characters[charNum].healthScore = Math.floor(Math.random()*80) +120;   
-            gameCharacter.characters[charNum].fightScore = Math.floor(Math.random()*25);
+            gameCharacter.characters[charNum].fightScore = Math.floor(Math.random()*25 + 5);
         },
 
         pickAttacker: function(charNum){
@@ -90,6 +90,7 @@ $(document).ready(function() {
             charButton.addClass("char-button " + gameCharacter.characters[i].name); 
             //charButton.addClass("char-button "); 
             //charButton.attr("char", gameCharacter.characters[i].name);
+            charButton.attr("char", i);
             charButton.append("<p>"+gameCharacter.characters[i].name + "</p>");
             charButton.append("<img src=" + gameCharacter.characters[i].image + " class='charImage' width = 100px>");
             gameCharacter.setInitialHS(i);
@@ -99,89 +100,56 @@ $(document).ready(function() {
     }
 
 
+    $(".char-button").on("click", function() {
+            var idx = $(this).attr("char");
+            console.log(idx);
+            if(gameCharacter.characters[idx].role===""){
+                gameCharacter.pickAttacker(idx);
+            } else if(gameCharacter.characters[idx].role==="defender"){
+                console.log("button is being pushed");
+                gameCharacter.pickDefender(idx);
+            }
+        })
 
 
-
-    $(".Gryffindor").on("click", function() {
-        if(gameCharacter.characters[0].role===""){
-            gameCharacter.pickAttacker(0);
-        } else if(gameCharacter.characters[0].role==="defender"){
-            console.log("button is being pushed");
-            gameCharacter.pickDefender(0);
-        }
-        
-    })
-    $(".Slytherin").on("click", function() {
-        if(gameCharacter.characters[1].role===""){
-            gameCharacter.pickAttacker(1);
-        } else if(gameCharacter.characters[1].role==="defender"){
-            console.log("button is being pushed");
-            gameCharacter.pickDefender(1);
-        }
-    })
-    $(".Hufflepuff").on("click", function() {
-        if(gameCharacter.characters[2].role===""){
-            gameCharacter.pickAttacker(2);
-        } else if(gameCharacter.characters[2].role==="defender"){
-            console.log("button is being pushed");
-            gameCharacter.pickDefender(2);
-        }
-    })
-    $(".Ravenclaw").on("click", function() {
-        if(gameCharacter.characters[3].role===""){
-            gameCharacter.pickAttacker(3);
-        } else if(gameCharacter.characters[3].role==="defender"){
-            console.log("button is being pushed");
-            gameCharacter.pickDefender(3);
-        }
-    })
     var numAttack = 1;
     var attackAmount = 0;
     var numDefendersDefeated = 0;
     $("#attack").on("click", function(){
-        attackAmount = gameCharacter.characters[gameCharacter.currentAttacker].fightScore*numAttack;
-        $("#attackInfo").html("<p> " + gameCharacter.characters[gameCharacter.currentAttacker].name 
-            + " is attacking with " + attackAmount + " points. <br>"
-            + gameCharacter.characters[gameCharacter.currentDefender].name + " is defending with " + 
-            gameCharacter.characters[gameCharacter.currentDefender].fightScore + " points.</p>");
-        gameCharacter.characters[gameCharacter.currentAttacker].healthScore -= gameCharacter.characters[gameCharacter.currentDefender].fightScore;
-        gameCharacter.characters[gameCharacter.currentDefender].healthScore -= attackAmount;
-        $("#" + gameCharacter.characters[gameCharacter.currentAttacker].name + "score").text(gameCharacter.characters[gameCharacter.currentAttacker].healthScore);
-        $("#" + gameCharacter.characters[gameCharacter.currentDefender].name + "score").text(gameCharacter.characters[gameCharacter.currentDefender].healthScore);
-        if(gameCharacter.characters[gameCharacter.currentAttacker].healthScore<=0){
-            $("#attackInfo").html("<p>Game Over... You lose. Please reset to play again. </p>");
-            var reset = $("<button>");
-            reset.addClass("reset-button");
-            reset.text("Reset");
-            $("#reset").append(reset);
-        } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated<2){
-            $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
-            ". Please pick another defender to attack.</p>");
-            $("#defender").empty();
-            gameCharacter.defenderExists=false;
-            numDefendersDefeated++;
-        } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated===2){
-            $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
-            ". YOU WIN!</p>");
-            $("#defender").empty();
-            var reset = $("<button>");
-            reset.addClass("reset-button");
-            reset.text("Reset");
-            $("#reset").append(reset);
-        }
+        if(gameCharacter.attackerExists===false || gameCharacter.defenderExists===false){
+            $("#attackInfo").html("<p> Please pick characters before attacking. </p>");
+        } else {
+            attackAmount = gameCharacter.characters[gameCharacter.currentAttacker].fightScore*numAttack;
+            $("#attackInfo").html("<p> " + gameCharacter.characters[gameCharacter.currentAttacker].name 
+                + " is attacking with " + attackAmount + " points. <br>"
+                + gameCharacter.characters[gameCharacter.currentDefender].name + " is defending with " + 
+                gameCharacter.characters[gameCharacter.currentDefender].fightScore + " points.</p>");
+            gameCharacter.characters[gameCharacter.currentAttacker].healthScore -= gameCharacter.characters[gameCharacter.currentDefender].fightScore;
+            gameCharacter.characters[gameCharacter.currentDefender].healthScore -= attackAmount;
+            $("#" + gameCharacter.characters[gameCharacter.currentAttacker].name + "score").text(gameCharacter.characters[gameCharacter.currentAttacker].healthScore);
+            $("#" + gameCharacter.characters[gameCharacter.currentDefender].name + "score").text(gameCharacter.characters[gameCharacter.currentDefender].healthScore);
+            if(gameCharacter.characters[gameCharacter.currentAttacker].healthScore<=0){
+                $("#attackInfo").html("<p>Game Over... You lose. Please reset to play again. </p>");
+                $(".reset-button").css("visibility", "visible");
+            } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated<2){
+                $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
+                ". Please pick another defender to attack.</p>");
+                $("#defender").empty();
+                gameCharacter.defenderExists=false;
+                numDefendersDefeated++;
+            } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated===2){
+                $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
+                ". YOU WIN!</p>");
+                $("#defender").empty();
+                $(".reset-button").css("visibility", "visible");
+            }
 
-        numAttack++;
+            numAttack++;
+        }
     })
   
     $(".reset-button").on("click", function(){
-        console.log("button is pushed");
-        initialize();
-        $("#yourCharacter, #enemies, #errors, #defender, #attackInfo, #reset").empty();
-        gameCharacter.setInitialHS();
-        gameCharacter.currentAttacker = 0; 
-        gameCharacter.currentDefender = 0;
-        gameCharacter.defenderExists = false;
-        gameCharacter.attackerExists = false;
+        location.reload();
     })
 
 
@@ -191,7 +159,16 @@ $(document).ready(function() {
 })
 
 
-
+// $(".reset-button").on("click", function(){
+//     console.log("button is pushed");
+//     initialize();
+//     $("#yourCharacter, #enemies, #errors, #defender, #attackInfo, #reset").empty();
+//     gameCharacter.setInitialHS();
+//     gameCharacter.currentAttacker = 0; 
+//     gameCharacter.currentDefender = 0;
+//     gameCharacter.defenderExists = false;
+//     gameCharacter.attackerExists = false;
+// })
 
     // $('[char="Gryffindor"]').on("click", function() {
     //     gameCharacter.pickAttacker(0);
@@ -216,4 +193,38 @@ $(document).ready(function() {
     // })
     // $('[char="Ravenclawdefender"]').on("click", function() {
     //     gameCharacter.pickDefender(3);
+    // })
+
+    // $(".Gryffindor").on("click", function() {
+    //     if(gameCharacter.characters[0].role===""){
+    //         gameCharacter.pickAttacker(0);
+    //     } else if(gameCharacter.characters[0].role==="defender"){
+    //         console.log("button is being pushed");
+    //         gameCharacter.pickDefender(0);
+    //     }
+        
+    // })
+    // $(".Slytherin").on("click", function() {
+    //     if(gameCharacter.characters[1].role===""){
+    //         gameCharacter.pickAttacker(1);
+    //     } else if(gameCharacter.characters[1].role==="defender"){
+    //         console.log("button is being pushed");
+    //         gameCharacter.pickDefender(1);
+    //     }
+    // })
+    // $(".Hufflepuff").on("click", function() {
+    //     if(gameCharacter.characters[2].role===""){
+    //         gameCharacter.pickAttacker(2);
+    //     } else if(gameCharacter.characters[2].role==="defender"){
+    //         console.log("button is being pushed");
+    //         gameCharacter.pickDefender(2);
+    //     }
+    // })
+    // $(".Ravenclaw").on("click", function() {
+    //     if(gameCharacter.characters[3].role===""){
+    //         gameCharacter.pickAttacker(3);
+    //     } else if(gameCharacter.characters[3].role==="defender"){
+    //         console.log("button is being pushed");
+    //         gameCharacter.pickDefender(3);
+    //     }
     // })
