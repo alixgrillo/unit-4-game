@@ -2,6 +2,7 @@ $(document).ready(function() {
     
     var gameCharacter = {
         
+        // array object that contains each character and associated properties
         characters: [gryffindor = {
                 name: "Gryffindor",
                 image: "assets/images/gryffindor.PNG",
@@ -33,7 +34,8 @@ $(document).ready(function() {
                     role: "",
                     fightScore: 0
                 }],
-
+        
+        // sets some trackers to help game keep track of characters
         currentAttacker: 0,
         currentDefender: 0,
         attackerExists: false,
@@ -45,6 +47,8 @@ $(document).ready(function() {
             gameCharacter.characters[charNum].fightScore = Math.floor(Math.random()*25 + 5);
         },
 
+        // function to pick attacker - this will move character to the attacker section and reset 
+        // classes in order to keep track of character as attacker
         pickAttacker: function(charNum){
     
             var pickedChar = $("." + gameCharacter.characters[charNum].name);
@@ -54,8 +58,8 @@ $(document).ready(function() {
             attackAmount = gameCharacter.characters[charNum].fightScore;
             pickedChar.addClass(gameCharacter.characters[charNum].name + "attacker");
             pickedChar.removeClass(gameCharacter.characters[charNum].name);
-
             $("#yourCharacter").append(pickedChar);
+            // moves the other 3 characters to the section that the user can pick defenders
             $.each(gameCharacter.characters, function(i, char){
                 if(i !== charNum){
                     var unpickedChar = $("." + gameCharacter.characters[i].name);
@@ -68,7 +72,9 @@ $(document).ready(function() {
             $("#pickACharacter").empty();
         },
 
-       pickDefender: function(charNum){
+        // function for the user to pick a defender, moves the character to the defender
+        // section
+        pickDefender: function(charNum){
             if(gameCharacter.defenderExists){
                 $("#errors").text("Defender is already setup. Please attack.");
             } else{
@@ -82,14 +88,14 @@ $(document).ready(function() {
 
     }
 
+    // initial function to start the page - iterates through the character list and creates an icon
+    // that will be used as a button - this has name, picture, and fight score 
     initialize();
 
     function initialize(){
         for(var i = 0; i<gameCharacter.characters.length; i++){
             var charButton = $("<div>");
             charButton.addClass("char-button " + gameCharacter.characters[i].name); 
-            //charButton.addClass("char-button "); 
-            //charButton.attr("char", gameCharacter.characters[i].name);
             charButton.attr("char", i);
             charButton.append("<p>"+gameCharacter.characters[i].name + "</p>");
             charButton.append("<img src=" + gameCharacter.characters[i].image + " class='charImage' width = 100px>");
@@ -99,7 +105,10 @@ $(document).ready(function() {
         }
     }
 
-
+    // whenever a character button is pushed, it will determine if it needs to pick an attacker (if one
+    // doesn't exist) or defender (if there is already an attacker)
+    // the attribute on the character is the index of the character array so that it will know which character
+    // to populate
     $(".char-button").on("click", function() {
             var idx = $(this).attr("char");
             console.log(idx);
@@ -111,15 +120,21 @@ $(document).ready(function() {
             }
         })
 
-
+        // this is the attack section. when an attacker and a defender is chosen, then the attack button 
+        // will work (it will otherwise tell the user to pick a character). The attack button will determine
+        // the current attack/defend amount by character and then subtract from the character's health score. As
+        // the character's health score goes to zero, it determines if the game is won or loss. The attacker has to 
+        // get through all three defenders to win.
     var numAttack = 1;
     var attackAmount = 0;
     var numDefendersDefeated = 0;
     $("#attack").on("click", function(){
         if(gameCharacter.attackerExists===false || gameCharacter.defenderExists===false){
-            $("#attackInfo").html("<p> Please pick characters before attacking. </p>");
+            $("#attackInfo").html("<p> Please pick a character before attacking. </p>");
         } else {
+            // the attack amount for the attacker will add their fight score each time it attacks
             attackAmount = gameCharacter.characters[gameCharacter.currentAttacker].fightScore*numAttack;
+            // displays how many points the characters lose
             $("#attackInfo").html("<p> " + gameCharacter.characters[gameCharacter.currentAttacker].name 
                 + " is attacking with " + attackAmount + " points. <br>"
                 + gameCharacter.characters[gameCharacter.currentDefender].name + " is defending with " + 
@@ -128,6 +143,7 @@ $(document).ready(function() {
             gameCharacter.characters[gameCharacter.currentDefender].healthScore -= attackAmount;
             $("#" + gameCharacter.characters[gameCharacter.currentAttacker].name + "score").text(gameCharacter.characters[gameCharacter.currentAttacker].healthScore);
             $("#" + gameCharacter.characters[gameCharacter.currentDefender].name + "score").text(gameCharacter.characters[gameCharacter.currentDefender].healthScore);
+            // determines if a character's health score falls below zero - meaning that round or the game is won/lost
             if(gameCharacter.characters[gameCharacter.currentAttacker].healthScore<=0){
                 $("#attackInfo").html("<p>Game Over... You lose. Please reset to play again. </p>");
                 $(".reset-button").css("visibility", "visible");
@@ -148,6 +164,7 @@ $(document).ready(function() {
         }
     })
   
+    // resets the game - as there are no variables that need to be kept track of, it just re-loads the page
     $(".reset-button").on("click", function(){
         location.reload();
     })
