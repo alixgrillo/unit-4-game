@@ -76,7 +76,7 @@ $(document).ready(function() {
         // section
         pickDefender: function(charNum){
             if(gameCharacter.defenderExists){
-                $("#errors").text("Defender is already setup. Please attack.");
+                $("#attackInfo").html("<p>Defender is already setup. Please attack.</p>");
             } else{
                 var pickedChar = $("." + gameCharacter.characters[charNum].name + "-defender");
                 gameCharacter.currentDefender = charNum;
@@ -115,7 +115,6 @@ $(document).ready(function() {
             if(gameCharacter.characters[idx].role===""){
                 gameCharacter.pickAttacker(idx);
             } else if(gameCharacter.characters[idx].role==="defender"){
-                console.log("button is being pushed");
                 gameCharacter.pickDefender(idx);
             }
         })

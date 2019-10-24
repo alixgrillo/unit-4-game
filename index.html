@@ -8,31 +8,50 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <!-- <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Raleway|Roboto|Shadows+Into+Light&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Jura|Oswald|Schoolbell&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/javascript/game.js"></script>
 </head>
 
 <body>
-    
-    <div class="container">
-            <h1>Harry Potter RPG!</h1>
-        <h2>Pick Your Character!</h2>
-        <div id="pickACharacter"></div><br>
 
-        <h2>Your Character</h2>
-        <div id="yourCharacter"></div>
-        <h2>Enemies Available to Attack</h2>
-        <div id="enemies"></div>
-        <h2>Fight Section</h2>
-        <div id="errors"></div>
-        <button id="attack">Attack</button>
-        <h2>Defender</h2>
-        <div id="defender"></div>
-        <div id="attackInfo"></div>
-        <div id="reset">
-            <button class="reset-button">Reset</button>
+    <div class="container">
+        <div class="column-top">
+            <h1>Harry Potter RPG!</h1>
+            <h2>Pick Your Character!</h2>
+            <div id="pickACharacter"></div><br>
+
+            <h2>Your Character</h2>
+            <div id="yourCharacter"></div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="column">
+            <h2></h2>
+            <h2>Enemies Available to Attack</h2>
+            <div id="enemies"></div>
+
+        </div>
+        <div class="column">
+                <h2>Fight Section</h2>
+                <div id="errors"></div>
+            <!-- <button id="attack">Attack</button> -->
+            <h2>Defender</h2>
+            <div id="defender"></div>
+            <!-- <div id="attackInfo"></div>
+            <div id="reset">
+                <button class="reset-button">Reset</button> -->
+            </div>
+        </div>
+        <div class="column-bottom">
+                
+                <button id="attack">Attack</button>
+                <div id="attackInfo"></div>
+                <div id="reset">
+                    <button class="reset-button">Reset</button>
         </div>
     </div>
 </body>

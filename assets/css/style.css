@@ -10,12 +10,30 @@ body{
     float: left;
     border-style: solid;
     border-width: 3px;
-    border-color: blue;
+    border-color: #8C6E6E;
     background-color: white;
     margin: 20px;
 }
+#yourCharacter{
+    background-color: white;
+}
 .container{
-    width: 40%;
+    width: 100%;
+}
+.column-top{
+    width: 100%;
+    overflow: auto;
+}
+.column-bottom{
+    clear: both;
+    width: 75%;
+    margin: auto;
+    
+}
+.column{
+    width: 50%;
+    float: left;
+    overflow: auto;
 }
 p{
     text-align: center;
@@ -23,7 +41,13 @@ p{
 }
 h2{
     clear: both;
-    font-weight: bold;
+    font-weight: 500;
+    color: #3BB9FF;
+    font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    padding: 5px;    
 }
 #attackInfo{
     clear: both;
