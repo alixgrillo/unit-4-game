@@ -90,6 +90,7 @@ $(document).ready(function() {
 
     // initial function to start the page - iterates through the character list and creates an icon
     // that will be used as a button - this has name, picture, and fight score 
+    var gameOver = false;
     initialize();
 
     function initialize(){
@@ -128,38 +129,44 @@ $(document).ready(function() {
     var attackAmount = 0;
     var numDefendersDefeated = 0;
     $("#attack").on("click", function(){
-        if(gameCharacter.attackerExists===false || gameCharacter.defenderExists===false){
-            $("#attackInfo").html("<p> Please pick a character before attacking. </p>");
+        if(gameOver){
+            $("#attackInfo").html("<p> The game is over. Please hit the reset button to play again. </p>");
         } else {
-            // the attack amount for the attacker will add their fight score each time it attacks
-            attackAmount = gameCharacter.characters[gameCharacter.currentAttacker].fightScore*numAttack;
-            // displays how many points the characters lose
-            $("#attackInfo").html("<p> " + gameCharacter.characters[gameCharacter.currentAttacker].name 
-                + " is attacking with " + attackAmount + " points. <br>"
-                + gameCharacter.characters[gameCharacter.currentDefender].name + " is defending with " + 
-                gameCharacter.characters[gameCharacter.currentDefender].fightScore + " points.</p>");
-            gameCharacter.characters[gameCharacter.currentAttacker].healthScore -= gameCharacter.characters[gameCharacter.currentDefender].fightScore;
-            gameCharacter.characters[gameCharacter.currentDefender].healthScore -= attackAmount;
-            $("#" + gameCharacter.characters[gameCharacter.currentAttacker].name + "score").text(gameCharacter.characters[gameCharacter.currentAttacker].healthScore);
-            $("#" + gameCharacter.characters[gameCharacter.currentDefender].name + "score").text(gameCharacter.characters[gameCharacter.currentDefender].healthScore);
-            // determines if a character's health score falls below zero - meaning that round or the game is won/lost
-            if(gameCharacter.characters[gameCharacter.currentAttacker].healthScore<=0){
-                $("#attackInfo").html("<p>Game Over... You lose. Please reset to play again. </p>");
-                $(".reset-button").css("visibility", "visible");
-            } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated<2){
-                $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
-                ". Please pick another defender to attack.</p>");
-                $("#defender").empty();
-                gameCharacter.defenderExists=false;
-                numDefendersDefeated++;
-            } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated===2){
-                $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
-                ". YOU WIN!</p>");
-                $("#defender").empty();
-                $(".reset-button").css("visibility", "visible");
-            }
+            if(gameCharacter.attackerExists===false || gameCharacter.defenderExists===false){
+                $("#attackInfo").html("<p> Please pick a character before attacking. </p>");
+            } else {
+                // the attack amount for the attacker will add their fight score each time it attacks
+                attackAmount = gameCharacter.characters[gameCharacter.currentAttacker].fightScore*numAttack;
+                // displays how many points the characters lose
+                $("#attackInfo").html("<p> " + gameCharacter.characters[gameCharacter.currentAttacker].name 
+                    + " is attacking with " + attackAmount + " points. <br>"
+                    + gameCharacter.characters[gameCharacter.currentDefender].name + " is defending with " + 
+                    gameCharacter.characters[gameCharacter.currentDefender].fightScore + " points.</p>");
+                gameCharacter.characters[gameCharacter.currentAttacker].healthScore -= gameCharacter.characters[gameCharacter.currentDefender].fightScore;
+                gameCharacter.characters[gameCharacter.currentDefender].healthScore -= attackAmount;
+                $("#" + gameCharacter.characters[gameCharacter.currentAttacker].name + "score").text(gameCharacter.characters[gameCharacter.currentAttacker].healthScore);
+                $("#" + gameCharacter.characters[gameCharacter.currentDefender].name + "score").text(gameCharacter.characters[gameCharacter.currentDefender].healthScore);
+                // determines if a character's health score falls below zero - meaning that round or the game is won/lost
+                if(gameCharacter.characters[gameCharacter.currentAttacker].healthScore<=0){
+                    $("#attackInfo").html("<p>Game Over... You lose. Please reset to play again. </p>");
+                    $(".reset-button").css("visibility", "visible");
+                    gameOver = true;
+                } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated<2){
+                    $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
+                    ". Please pick another defender to attack.</p>");
+                    $("#defender").empty();
+                    gameCharacter.defenderExists=false;
+                    numDefendersDefeated++;
+                } else if(gameCharacter.characters[gameCharacter.currentDefender].healthScore<=0 && numDefendersDefeated===2){
+                    $("#attackInfo").html("<p>Congrats! You beat " + gameCharacter.characters[gameCharacter.currentDefender].name + 
+                    ". YOU WIN!</p>");
+                    $("#defender").empty();
+                    $(".reset-button").css("visibility", "visible");
+                    gameOver = true;
+                }
 
-            numAttack++;
+                numAttack++;
+            }
         }
     })
   
