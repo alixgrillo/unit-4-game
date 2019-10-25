@@ -24,7 +24,7 @@ a random fight score, between 5 and 30, which is initially unknown to the user. 
 the character's health score will be reduced by their competitor's fight score. The attacker's initial fight score 
 will be added to their fight score each round.
 
-<!-- <img src="/assets/images/initial-game-screen.PNG"> -->
+<img src="/assets/images/houses-background2.jpg">
 
 ## How to Play
 To begin the game, the user should choose a character. And then choose a defender. The attacker will be the 
@@ -36,11 +36,11 @@ Once an attacker and defender is setup, the user should hit the attack button to
 off. As soon as one of the character's healthscore falls below zero, the user will either need to pick a new
 defender or the game is over. 
 
-<!-- <img src="/assets/images/game-winner.PNG"> -->
+<img src="/assets/images/game-example.gif">
 
 When the game is won or lost, a reset button will appear allowing the user to play again.
 
-<!-- <img src="/assets/images/game-loser.PNG"> -->
+<img src="/assets/images/game-over.PNG">
 
 
 ## Requirements
