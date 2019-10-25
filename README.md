@@ -24,7 +24,7 @@ a random fight score, between 5 and 30, which is initially unknown to the user. 
 the character's health score will be reduced by their competitor's fight score. The attacker's initial fight score 
 will be added to their fight score each round.
 
-<img src="/assets/images/houses-background2.jpg">
+<img src="/assets/images/houses-background2.jpg" width= 75%>
 
 ## How to Play
 To begin the game, the user should choose a character. And then choose a defender. The attacker will be the 
