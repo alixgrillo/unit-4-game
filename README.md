@@ -40,7 +40,7 @@ defender or the game is over.
 
 When the game is won or lost, a reset button will appear allowing the user to play again.
 
-<img src="/assets/images/game-over.PNG">
+<img src="/assets/images/game-over.gif">
 
 
 ## Requirements
