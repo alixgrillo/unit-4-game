@@ -13,6 +13,14 @@ body{
     border-color: #8C6E6E;
     background-color: white;
     margin: 20px;
+  
+}
+.char-btn{
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    -webkit-text-stroke-width: 0px;
+    font-size: 18px;
+    font-weight: bold;
 }
 #yourCharacter{
     background-color: white;
@@ -37,12 +45,18 @@ body{
 }
 p{
     text-align: center;
-    font-weight: bolder;
+    font-weight: 500;
+    color: #fe1a00;
+    font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 h2{
     clear: both;
     font-weight: 500;
-    color: #3BB9FF;
+    /* color: #3BB9FF; */
+    color: #fe1a00;
     font-family: 'Roboto', sans-serif;
 	font-size: 25px;
 	-webkit-text-stroke-width: 1px;
@@ -61,6 +75,30 @@ h1{
     text-align: center;
     font-family: 'Schoolbell', cursive;
     font-size: 28px;
+}
+button{
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+	background-color:#fe1a00;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b23e35;
+}
+button:hover {
+	background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+	background-color:#ce0100;
+}
+button:active {
+	position:relative;
+	top:1px;
 }
 /* 
 font-family: 'Schoolbell', cursive;

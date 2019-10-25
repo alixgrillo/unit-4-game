@@ -97,10 +97,10 @@ $(document).ready(function() {
             var charButton = $("<div>");
             charButton.addClass("char-button " + gameCharacter.characters[i].name); 
             charButton.attr("char", i);
-            charButton.append("<p>"+gameCharacter.characters[i].name + "</p>");
+            charButton.append("<p class=char-btn>"+gameCharacter.characters[i].name + "</p>");
             charButton.append("<img src=" + gameCharacter.characters[i].image + " class='charImage' width = 100px>");
             gameCharacter.setInitialHS(i);
-            charButton.append("<p id=" + gameCharacter.characters[i].name + "score>"+gameCharacter.characters[i].healthScore + "</p>");
+            charButton.append("<p class=char-btn id=" + gameCharacter.characters[i].name + "score>"+gameCharacter.characters[i].healthScore + "</p>");
             $("#pickACharacter").append(charButton);
         }
     }
