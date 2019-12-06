@@ -4,12 +4,13 @@ Random Number Generator Face-off Game
 As there were 4 characters, the fitting theme is Harry Potter, in which the houses face off against each
 other.
 
-<!-- <img src="/assets/images/cover-photo.jpg" width = 400px> -->
+Please access the game at https://alixgrillo.github.io/unit-4-game/.
 
 
 ## Table of Contents
 * [About](#about)
 * [How to Play](#how-to-play)
+* [Technical Features](#technical-features)
 * [Requirements](#requirements)
 * [Build Tools](#build-tools)
 * [Acknowledgements](#acknowledgements)
@@ -42,17 +43,18 @@ When the game is won or lost, a reset button will appear allowing the user to pl
 
 <img src="/assets/images/game-over.gif">
 
+## Technical Features
+* Each character resides in an array of objects that contains all pertinant information about that character,
+including the `Math.floor(Math.random())` score and fight score.
+* JQuery dynamically updates the DOM with each update in the game.
 
 ## Requirements
 There are no requirements for this game.
 
 ## Build Tools
 * HTML/CSS
-* JQuery
+* JQuery 3.2.1
+* Google Font
 
 ## Acknowledgements
 * Harry Potter Images
-
-## License
-This project was created by [Alix Grillo](https://github.com/alixgrillo).    
-[License](https://github.com/alixgrillo/unit-4-game/LICENSE.md) 
